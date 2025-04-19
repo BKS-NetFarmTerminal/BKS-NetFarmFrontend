@@ -4,7 +4,7 @@ export const Hub = () => {
     return (
         <div>
             <Layout>
-                <img src="../../../public/hub.png" alt=""/>
+                <img style={{ height: '99vh'}} src="../../../public/hub.png" alt=""/>
             </Layout>
         </div>
     );
