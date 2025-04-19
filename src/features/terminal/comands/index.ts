@@ -1,6 +1,6 @@
 import {cd} from './cd'
 import {useStore} from "@/entities/store";
-const comandList = {
+const comandList: Record<string, any> = {
     cd
 }
 const commandDefinition = (value: string) => {
