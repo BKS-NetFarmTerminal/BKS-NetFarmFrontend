@@ -11,7 +11,7 @@ export const Layout: FC<Layout> = ({children}) => {
             <div style={{ width: '80%'}}>{children}</div>
             <div style={{ width: '20%' , border: '1px solid #fff'}}>
                 <div><Buffer/></div>
-                <div><Console/></div>
+                <div style={{ border: '1px solid #fff'}}><Console/></div>
             </div>
         </div>
     );

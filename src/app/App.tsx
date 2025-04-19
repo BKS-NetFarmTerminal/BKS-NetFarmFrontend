@@ -3,8 +3,13 @@ import { Routes, Route, useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { Auth } from '@/pages/auth';
 import { Hub } from '@/pages/hub';
+import {Storage} from '@/pages/storage';
+import {Shop} from "@/pages/shop";
+import {Field} from "@/pages/field";
+import {Pasture} from "@/pages/pasture";
+import {Stable} from "@/pages/stable";
 import styled from "styled-components";
-import {TonConnectButton, toUserFriendlyAddress, useTonConnectUI, useTonWallet} from '@tonconnect/ui-react'
+import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from '@tonconnect/ui-react'
 
 const FloatingDiv = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -24,8 +29,7 @@ const FloatingDiv = styled.div<{ $visible: boolean }>`
 `;
 
 export const App = () => {
-
-    const [tonConnectUI] = useTonConnectUI()
+    // const [tonConnectUI] = useTonConnectUI()
     const wallet = useTonWallet()
 
     useEffect(() => {
@@ -39,40 +43,41 @@ export const App = () => {
   const wallet1  = true
   const navigate = useNavigate();
 
+
   // Проверяем авторизацию при изменении состояния кошелька
-  useEffect(() => {
-    if (wallet1) {
-      navigate('/'); // Перенаправляем на главную при авторизации
-    }
-  }, [wallet, navigate]);
+  // useEffect(() => {
+  //   if (wallet1) {
+  //     navigate('/'); // Перенаправляем на главную при авторизации
+  //   }
+  // }, [wallet, navigate]);
 
-    const sendTransaction = async () => {
-        const ton_amount = 0.2
-        if (!wallet) {
-            return
-        }
-
-        try {
-            const transaction = {
-                validUntil: Math.floor(Date.now() / 1000) + 60, // актуальность транзакции
-                messages: [
-                    {
-                        address: '0QDXGfNik8uZvWmdNyoZWx_ID59TNda-GKpsI7-__uPdd8cm', // адрес получателя - статичен в нашем случае
-                        amount: (ton_amount * 10 ** 9).toString(), // ton_amount - сюда количество тонов
-                    },
-                ],
-            }
-
-            await tonConnectUI.sendTransaction(transaction)
-            console.log('Транзакция отправлена!')
-        } catch (error) {
-            console.error('Ошибка при отправке транзакции:', error)
-        }
-    }
+    // const sendTransaction = async () => {
+    //     const ton_amount = 0.2
+    //     if (!wallet) {
+    //         return
+    //     }
+    //
+    //     try {
+    //         const transaction = {
+    //             validUntil: Math.floor(Date.now() / 1000) + 60, // актуальность транзакции
+    //             messages: [
+    //                 {
+    //                     address: '0QDXGfNik8uZvWmdNyoZWx_ID59TNda-GKpsI7-__uPdd8cm', // адрес получателя - статичен в нашем случае
+    //                     amount: (ton_amount * 10 ** 9).toString(), // ton_amount - сюда количество тонов
+    //                 },
+    //             ],
+    //         }
+    //
+    //         await tonConnectUI.sendTransaction(transaction)
+    //         console.log('Транзакция отправлена!')
+    //     } catch (error) {
+    //         console.error('Ошибка при отправке транзакции:', error)
+    //     }
+    // }
 
   return (
   <div style={{ width: '100%',  height: '100%'}}>
-      <FloatingDiv $visible={wallet}>
+      <FloatingDiv $visible={!!wallet}>
           <TonConnectButton />
       </FloatingDiv>
       <Routes>
@@ -83,10 +88,27 @@ export const App = () => {
         />
 
         {/* Защищенный маршрут */}
-        {/*<Route*/}
-        {/*    path="/storage"*/}
-        {/*    element={wallet ? <Storage /> : <Auth />}*/}
-        {/*/>*/}
+        <Route
+            path="/shop"
+            element={wallet ? <Shop /> : <Auth />}
+        />
+          <Route
+              path="/storage"
+              element={wallet ? <Storage /> : <Auth />}
+          />
+          <Route
+              path="/stable"
+              element={wallet ? <Stable /> : <Auth />}
+          />
+          <Route
+              path="/field"
+              element={wallet ? <Field /> : <Auth />}
+          />
+          <Route
+              path="/pasture"
+              element={wallet ? <Pasture /> : <Auth />}
+          />
+
       </Routes>
   </div>
   );

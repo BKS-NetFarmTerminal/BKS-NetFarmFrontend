@@ -7,14 +7,14 @@ interface Input {
 }
 export const Input: FC<Input> = ({ onChange, onKeyDown, value }) => {
     return (
-        <div>
             <input
+                className={'invisible-input'}
+                placeholder={'|'}
                 type="text"
                 onChange={onChange}
                 onKeyDown={onKeyDown}
                 value={value}
             />
-        </div>
     );
 };
 

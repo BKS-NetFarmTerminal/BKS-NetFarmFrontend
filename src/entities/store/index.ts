@@ -1,12 +1,38 @@
 import { create } from 'zustand'
 
-export const useStore = create(() => ({
+export interface Store {
+    token: string,
+    directories: {name: string, parent: string}[],
+    currentDirectory: string,
+    updateCurrentDirectories: (newCurrentDirectory: string) => void,
+    fullPath: (fullPath?: string[], now?: string) => string[],
+    commandStory: string[],
+    addCommandStory: (newCommandStory: string) => void,
+}
+
+export const useStore = create<Store>((set, get) => ({
     token: '',
     directories: [
-        { name: 'shope', parent: 'root'},
-        { name: 'storage', parent: 'root'},
         { name: 'stable', parent: 'root'},
+        { name: 'shop', parent: 'root'},
+        { name: 'storage', parent: 'root'},
         { name: 'field', parent: 'root'},
         { name: 'pasture', parent: 'root'},
-    ]
+    ],
+    currentDirectory: 'root',
+    updateCurrentDirectories: (newCurrentDirectory) => set({ currentDirectory: newCurrentDirectory }),
+    fullPath: (fullPath=[], now= get().currentDirectory) => {
+        fullPath.unshift(now)
+        if (now === 'root') {
+            return fullPath
+        } else {
+            const newPath = get().directories.find((e) => e.name === now)?.parent
+                return get().fullPath(fullPath, newPath || 'root')
+        }
+
+    },
+    commandStory: [],
+    addCommandStory: (newCommandStory: string) => {
+        set((state: Store) => ({...state, commandStory: [...state.commandStory, newCommandStory]}))
+    },
 }))

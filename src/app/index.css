@@ -62,3 +62,49 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.invisible-input {
+  /* Убираем все декоративные стили */
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  /* Убираем отступы и рамки */
+  padding: 0;
+  margin: 0;
+
+  /* Убираем стандартные стили браузера */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Убираем визуальную обратную связь */
+  resize: none;
+  /*caret-color: transparent; !* Опционально: скрывает курсор *!*/
+
+  color: #fff;
+  text-shadow: 0 0 0 transparent;
+
+  /* Убираем любые эффекты при фокусе */
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Убираем стрелки у number-инпутов */
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.scroll-container {
+  /*height: 200px; !* Фиксированная высота *!*/
+  overflow-y: auto; /* Вертикальный скролл при необходимости */
+  scroll-behavior: smooth; /* Плавная прокрутка */
+
+  /* Опциональные стили для красоты */
+  border: 1px solid #ccc;
+  padding: 10px;
+}

@@ -1,6 +1,6 @@
 export const Buffer = () => {
     return (
-        <div>
+        <div style={{height: '50vh'}}>
             buffer
         </div>
     );
