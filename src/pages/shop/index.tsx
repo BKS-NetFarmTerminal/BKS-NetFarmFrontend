@@ -4,7 +4,18 @@ export const Shop = () => {
     return (
         <div>
             <Layout>
-                Shop
+                <div
+                    style={{
+                        width: '100%',
+                        height: '99vh',
+                        display: 'block',
+                        backgroundImage: 'url(../../public/shop.png)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        backgroundSize: '100% 100%',
+                    }}>
+
+                </div>
             </Layout>
         </div>
     );
