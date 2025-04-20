@@ -1,6 +1,6 @@
 // App.tsx
-import { Routes, Route, useNavigate } from 'react-router';
-import { useEffect } from 'react';
+import { Routes, Route } from 'react-router';
+import {useEffect} from 'react';
 import { Auth } from '@/pages/auth';
 import { Hub } from '@/pages/hub';
 import {Storage} from '@/pages/storage';
@@ -10,6 +10,7 @@ import {Pasture} from "@/pages/pasture";
 import {Stable} from "@/pages/stable";
 import styled from "styled-components";
 import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from '@tonconnect/ui-react'
+import {useStore} from "@/entities/store";
 
 const FloatingDiv = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -29,27 +30,27 @@ const FloatingDiv = styled.div<{ $visible: boolean }>`
 `;
 
 export const App = () => {
-    // const [tonConnectUI] = useTonConnectUI()
+    const {walletToken, updateWalletToken} = useStore();
     const wallet = useTonWallet()
 
     useEffect(() => {
+
+    }, []);
+
+
+    useEffect(() => {
         if (wallet) {
-            console.log('Кошелёк подключен! Адрес:', toUserFriendlyAddress(wallet.account.address, true))
+            updateWalletToken(toUserFriendlyAddress(wallet.account.address, true))
+            // console.log('Кошелёк подключен! Адрес:', toUserFriendlyAddress(wallet.account.address, true))
         } else {
             console.log('Кошелёк отключен')
+            updateWalletToken('')
         }
     }, [wallet])
 
-  const wallet1  = true
-  const navigate = useNavigate();
-
 
   // Проверяем авторизацию при изменении состояния кошелька
-  // useEffect(() => {
-  //   if (wallet1) {
-  //     navigate('/'); // Перенаправляем на главную при авторизации
-  //   }
-  // }, [wallet, navigate]);
+    // const [tonConnectUI] = useTonConnectUI()
 
     // const sendTransaction = async () => {
     //     const ton_amount = 0.2
@@ -77,7 +78,7 @@ export const App = () => {
 
   return (
   <div style={{ width: '100%',  height: '100%'}}>
-      <FloatingDiv $visible={!!wallet}>
+      <FloatingDiv $visible={!!walletToken}>
           <TonConnectButton />
       </FloatingDiv>
       <Routes>

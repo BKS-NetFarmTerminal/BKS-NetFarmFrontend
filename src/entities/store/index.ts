@@ -8,6 +8,8 @@ export interface Store {
     fullPath: (fullPath?: string[], now?: string) => string[],
     commandStory: string[],
     addCommandStory: (newCommandStory: string) => void,
+    walletToken: string,
+    updateWalletToken: (newWalletToken: string) => void,
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -35,4 +37,6 @@ export const useStore = create<Store>((set, get) => ({
     addCommandStory: (newCommandStory: string) => {
         set((state: Store) => ({...state, commandStory: [...state.commandStory, newCommandStory]}))
     },
+    walletToken: '',
+    updateWalletToken: (newWalletToken: string) => set({ walletToken: newWalletToken }),
 }))

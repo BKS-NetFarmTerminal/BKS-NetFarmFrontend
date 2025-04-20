@@ -1,4 +1,5 @@
 import {Layout} from "@/widgets/layout";
+import {Grid} from "@/shared/grid";
 
 export const Field = () => {
     return (
@@ -14,7 +15,7 @@ export const Field = () => {
                         backgroundPosition: 'center',
                         backgroundSize: '100% 100%',
                 }}>
-
+                <Grid/>
                 </div>
             </Layout>
         </div>
