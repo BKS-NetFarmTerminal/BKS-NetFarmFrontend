@@ -43,5 +43,11 @@ export const useStore = create<Store>((set, get) => ({
     },
     walletToken: '',
     updateWalletToken: (newWalletToken: string) => set({ walletToken: newWalletToken }),
-    buffer: []
+    buffer: [],
+    updateBuffer: (newBuffer: {
+        title: string,
+        count: number,
+    }[]) => set({ buffer: newBuffer }),
+    tok: '',
+    upTok: (nt) => set({ tok: nt }),
 }))

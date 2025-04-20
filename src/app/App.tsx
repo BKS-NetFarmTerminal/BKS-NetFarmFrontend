@@ -11,6 +11,8 @@ import {Stable} from "@/pages/stable";
 import styled from "styled-components";
 import {TonConnectButton, toUserFriendlyAddress, useTonWallet} from '@tonconnect/ui-react'
 import {useStore} from "@/entities/store";
+import {authWithWallet} from "@/pages/auth/auth.tsx";
+import {getAnimalFromUser} from "@/pages/pasture/get.ts";
 
 const FloatingDiv = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -30,7 +32,7 @@ const FloatingDiv = styled.div<{ $visible: boolean }>`
 `;
 
 export const App = () => {
-    const {walletToken, updateWalletToken} = useStore();
+    const {walletToken, updateWalletToken, updateBuffer, tok, upTok} = useStore();
     const wallet = useTonWallet()
 
     useEffect(() => {
@@ -39,8 +41,25 @@ export const App = () => {
 
 
     useEffect(() => {
+
         if (wallet) {
-            updateWalletToken(toUserFriendlyAddress(wallet.account.address, true))
+            const authenticate = async () => {
+                try {
+                    const response = await authWithWallet('7d15bfbc-6032-4d7e-8a4b-3c16962a29ab');
+                    await upTok(response.token);
+                    // const animal = await getAnimalFromUser(response.token)
+                    // console.log(animal)
+
+                    console.log('Auth successful:', response);
+                    // Действия после успешной аутентификации
+                } catch (error) {
+                    console.error('Auth failed:', error);
+                    // Обработка ошибки
+                }
+            };
+            const t = toUserFriendlyAddress(wallet.account.address, true);
+            authenticate();
+            updateWalletToken(t)
             // console.log('Кошелёк подключен! Адрес:', toUserFriendlyAddress(wallet.account.address, true))
         } else {
             console.log('Кошелёк отключен')
