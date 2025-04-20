@@ -1,7 +1,9 @@
 import {cd} from './cd'
 import {Store} from "@/entities/store";
+import {buy} from "./buy";
 const comandList: Record<string, any> = {
-    cd
+    cd,
+    buy
 }
 const commandDefinition = (value: string, store: Store, navigate: any) => {
 

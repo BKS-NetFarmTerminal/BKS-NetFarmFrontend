@@ -1,7 +1,5 @@
 import {Store} from '@/entities/store'
 
-
-
 export const cd = (atr: string[], store: Store, navigate: any) => {
 
     const allOp = atr[0].split('/');

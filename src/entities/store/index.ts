@@ -10,6 +10,10 @@ export interface Store {
     addCommandStory: (newCommandStory: string) => void,
     walletToken: string,
     updateWalletToken: (newWalletToken: string) => void,
+    buffer: {
+        title: string,
+        count: number,
+    }[]
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -39,4 +43,5 @@ export const useStore = create<Store>((set, get) => ({
     },
     walletToken: '',
     updateWalletToken: (newWalletToken: string) => set({ walletToken: newWalletToken }),
+    buffer: []
 }))
